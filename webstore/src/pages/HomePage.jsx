@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react';
+import FeaturedProducts from '../components/home/FeaturedProducts';
 
 export class HomePage extends Component {
   render() {
     return <div>
         <Fragment>
-            <h1>This is Home!</h1>
+            <FeaturedProducts/>
         </Fragment>
     </div>;
   }
