@@ -7,6 +7,11 @@ import NavMenuMobile from '../components/common/NavMenuMobile'
 
 
 class ContactPage extends Component {
+    //go to the top of the page
+    componentDidMount(){
+        window.scroll(0,0)
+   }
+   
      render() {
           return (
                <Fragment> 
