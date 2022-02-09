@@ -11,6 +11,7 @@
 @import "responsive.css";
 @import "megaMenuAll.css";
 @import "productDetails.css";
+@import "cartList.css";
 
 body {
   background-color: rgb(255, 255, 255);
