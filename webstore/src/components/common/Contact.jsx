@@ -3,6 +3,8 @@ import { Container,Row,Col, Form,Button } from 'react-bootstrap'
 import validation from '../../validation/validation';
 import axios from 'axios' 
 import AppURL from '../../api/AppURL';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export class Contact extends Component {
 
@@ -38,21 +40,27 @@ export class Contact extends Component {
                let name = this.state.name;
                let email = this.state.email;
                let message = this.state.message;
+               let sendBtn = document.getElementById('sendBtn');
+               let contactForm = document.getElementById('contactForm');
 
                if(message.length==0){
-                    alert("Please write your message");
+                    toast.error("Please write your message");
                }
                else if(name.length==0){
-                    alert("Please write down our name");
+                    toast.error("Please write down our name");
                }
                else if(email.length==0){
-                    alert("Please write down our Email");
+                    toast.error("Please write down our Email");
                }
                else if(!(validation.NameRegx).test(name)){
-                    alert("Invaid Name");
+                    toast.error("Invaid Name");
+               }
+               else if(!(validation.EmailRegx).test(email)){
+                    toast.error("Invaid Email");
                }
                else{
-                   
+
+     sendBtn.innerHTML="Sending...";       
      let MyFormData = new FormData();
      MyFormData.append("name",name)
      MyFormData.append("email",email)
@@ -60,14 +68,18 @@ export class Contact extends Component {
 
      axios.post(AppURL.PostContact,MyFormData).then(function (response) {
                if(response.status==200 && response.data==1){
-                    alert("Message sent successfully!");
+                    toast.success("Message Send Successfully");
+                    sendBtn.innerHTML="Send";
+                    contactForm.reset();
                }
                else{
-               alert("Error!"); 
+               toast.error("error"); 
+               sendBtn.innerHTML="Send";
                }
           })
           .catch(function (error) {
-          alert(error);
+          toast.error(error);
+          sendBtn.innerHTML="Send";
           });
                }
 
@@ -85,7 +97,7 @@ export class Contact extends Component {
      
                     <Row className="text-center">
              <Col className="d-flex justify-content-center" md={6} lg={6} sm={12} xs={12}>
-     <Form onSubmit={this.onFormSubmit} className="onboardForm">
+     <Form id="contactForm" onSubmit={this.onFormSubmit} className="onboardForm">
           <h4 className="section-title-login">CONTACT WITH US </h4>
           <h6 className="section-sub-title">Please Contact With Us </h6>
           
@@ -95,7 +107,7 @@ export class Contact extends Component {
 
           <Form.Control onChange={this.messageOnChange} className="form-control m-2" as="textarea" rows={3} placeholder="Message" />
 
-          <Button type="submit" className="btn btn-block m-2 site-btn-login"> Send </Button>
+          <Button id="sendBtn" type="submit" className="btn btn-block m-2 site-btn-login"> Send </Button>
           
      </Form>
      
@@ -122,6 +134,7 @@ Email: Support@easylearningbd.com
                          </Col>
                     </Row>
                </Container>
+               <ToastContainer />
           </Fragment>
           )
      }
