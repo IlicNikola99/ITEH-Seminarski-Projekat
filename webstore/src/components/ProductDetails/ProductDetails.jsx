@@ -6,9 +6,9 @@ import Product3 from '../../assets/images/product/product3.png'
 import Product4 from '../../assets/images/product/product4.png'
 class ProductDetails extends Component {
      render() {
-          return (
+          return ( 
                <Fragment>
-               <Container fluid={true} className="BetweenTwoSection">
+               <Container fluid={true}  className="BetweenTwoSection">
                    <Row className="p-2">
 <Col className="shadow-sm bg-white pb-3 mt-4" md={12} lg={12} sm={12} xs={12}>
      <Row>
