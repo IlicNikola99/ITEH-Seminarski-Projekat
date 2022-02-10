@@ -4,11 +4,11 @@ import {Container,Row,Col,Card} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 
-class Category extends Component {
+class SearchList extends Component {
      render() {
 
           const MyList = this.props.ProductData;
-          const Category = this.props.Category;
+          const SearchKey = this.props.SearchKey;
           const MyView = MyList.map((ProductList,i)=>{
 
           if(ProductList.special_price=="na"){
@@ -54,12 +54,13 @@ class Category extends Component {
                <div className="breadbody">
                <Breadcrumb>
   <Breadcrumb.Item> <Link to="/"> Home </Link> </Breadcrumb.Item>
-  <Breadcrumb.Item> <Link to={"/productcategory/"+Category}> {Category } </Link> </Breadcrumb.Item>   
+
+  <Breadcrumb.Item> <Link to={"/productbysearch/"+SearchKey}> Search For :  {SearchKey } </Link> </Breadcrumb.Item>   
 </Breadcrumb>
 </div>
 
 
-      <div className="section-title text-center mb-40 mt-2"><h2> {Category }  </h2>
+      <div className="section-title text-center mb-40 mt-2"><h2> {SearchKey }  </h2>
       
       </div>
 
@@ -72,4 +73,4 @@ class Category extends Component {
      }
 }
 
-export default Category
+export default SearchList
