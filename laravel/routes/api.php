@@ -14,6 +14,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgetController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReviewController;
 
 
 
@@ -32,6 +33,8 @@ Route::get('/allslider', [SliderController::class, 'AllSlider']);
 Route::get('/productdetails/{id}', [ProductDetailsController::class, 'ProductDetails']);
 Route::get('/notification', [NotificationController::class, 'NotificationHistory']);
 Route::get('/search/{key}', [ProductListController::class, 'ProductBySearch']);
+Route::get('/similar/{subcategory}', [ProductListController::class, 'SimilarProduct']);
+Route::get('/reviewlist/{id}', [ReviewController::class, 'ReviewList']);
 
 //Laravel Passport
 Route::post('/login', [AuthController::class, 'Login']);
