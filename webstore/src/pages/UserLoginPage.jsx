@@ -7,12 +7,15 @@ import UserLogin from '../components/common/UserLogin'
 
 
 class UserLoginPage extends Component {
-    //go to the top of the page
- componentDidMount(){
-    window.scroll(0,0)
-  }
-  
+     componentDidMount(){
+          window.scroll(0,0)
+     }
+     
      render() {
+
+          const setUser = this.props.setUser;
+          const user = this.props.user;
+          
           return (
                <Fragment> 
                <div className="Desktop">
@@ -23,7 +26,7 @@ class UserLoginPage extends Component {
                <NavMenuMobile />  
                </div>                       
 
-               <UserLogin /> 
+               <UserLogin setUser={setUser} user ={user} /> 
                
                <div className="Desktop">
                <FooterDesktop/>
