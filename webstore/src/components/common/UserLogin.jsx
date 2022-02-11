@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Container,Row,Col, Form,Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import Login from '../../assets/images/login.png'
 class UserLogin extends Component {
      render() {
@@ -17,6 +18,10 @@ class UserLogin extends Component {
                <input className="form-control m-2" type="email" placeholder="Enter Your Email" />
                <input className="form-control m-2" type="password" placeholder="Enter Your password" />
                <Button className="btn btn-block m-2 site-btn-login"> Login </Button>
+               <br></br> <br></br>
+                <hr />
+               <p> <b> Forgot Your Password? </b><Link to="/forget"><b> Password Reset </b> </Link> </p>
+
                
           </Form>
 
