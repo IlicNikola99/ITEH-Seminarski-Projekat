@@ -4,17 +4,21 @@ import Product1 from '../../assets/images/product/product1.png'
 import ReactDOM from 'react-dom'
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import { Link } from 'react-router-dom'
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
+import InnerImageZoom from 'react-inner-image-zoom';
 
 class ProductDetails extends Component {
 
      constructor(){
           super();
+          this.state={
+               previewImg:"0"
+          }
      }
 
-     imgOnClick(event){
+     imgOnClick = (event) => {
           let imgSrc = event.target.getAttribute('src');
-          let previewImg = document.getElementById('previewImg');
-               ReactDOM.findDOMNode(previewImg).setAttribute('src',imgSrc)
+          this.setState({previewImg:imgSrc})
      }
 
 
@@ -43,6 +47,10 @@ class ProductDetails extends Component {
           let category = ProductAllData['productList'][0]['category'];
           let subcategory = ProductAllData['productList'][0]['subcategory'];
           let image = ProductAllData['productList'][0]['image'];
+
+          if(this.state.previewImg === "0"){
+               this.setState({previewImg:image})
+          }
 
           let price = ProductAllData['productList'][0]['price'];
           let product_code = ProductAllData['productList'][0]['product_code'];
@@ -113,7 +121,12 @@ class ProductDetails extends Component {
 <Col className="shadow-sm bg-white pb-3 mt-4" md={12} lg={12} sm={12} xs={12}>
      <Row>
           <Col className="p-3" md={6} lg={6} sm={12} xs={12}>
-          <img id="previewImg" className="bigimage" src={image_one} />
+          
+
+               
+          <InnerImageZoom className="detailimage" zoomScale={1.8} zoomType={"hover"} src={this.state.previewImg} zoomSrc={this.state.previewImg} />
+         
+
           <Container  className="my-3">
                <Row>
                     <Col className="p-0 m-0"  md={3} lg={3} sm={3} xs={3}>
