@@ -36,6 +36,8 @@ class AppRoute extends Component {
 
  <Route exact path="/reset/:id" render={(props) => <ResetPasswordPage {...props} key={Date.now()} /> } />
  
+ <Route exact path="/profile" render={(props) => <Profile {...props} key={Date.now()} /> } />
+
  <Route exact path="/contact" render={(props) => <ContactPage {...props} key={Date.now()} /> } />
 
  <Route exact path="/purchase" render={(props) => <PurchasePage {...props} key={Date.now()} /> } />
