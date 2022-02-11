@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Router, Route, Switch } from "react-router";
-import ForgetPassword from '../components/common/ForgetPassword';
+import AppURL from '../api/AppURL';
 import AboutPage from '../pages/AboutPage';
 import CartPage from '../pages/CartPage';
 import ContactPage from '../pages/ContactPage';
@@ -19,26 +19,55 @@ import RegisterPage from '../pages/RegisterPage';
 import ResetPasswordPage from '../pages/ResetPasswordPage';
 import SearchPage from '../pages/SearchPage';
 import UserLoginPage from '../pages/UserLoginPage';
+import axios from 'axios' 
+import NavMenuDesktop from '../components/common/NavMenuDesktop';
 
 class AppRoute extends Component {
+
+     constructor(){
+          super();
+          this.state={
+               user:{}
+          }
+     }
+
+     componentDidMount(){
+          axios.get(AppURL.UserData).then((response) => { 
+               this.setUser(response.data)
+          }).catch(error=>{
+
+          });
+     }
+
+
+     setUser = (user) => {
+          this.setState({user:user})
+     }
+
      render() {
           return (
      <Fragment>
+
+      <NavMenuDesktop user={this.state.user} setUser={this.setUser} />  
+
           <Switch>
                
 
  <Route exact path="/" render={(props) => <HomePage {...props} key={Date.now()} /> } />
 
- <Route exact path="/login" render={(props) => <UserLoginPage {...props} key={Date.now()} /> } />
+ <Route exact path="/login" render={(props) => <UserLoginPage user={this.state.user} setUser={this.setUser}  {...props} key={Date.now()} /> } />
 
- <Route exact path="/register" render={(props) => <RegisterPage {...props} key={Date.now()} /> } />
+  <Route exact path="/register" render={(props) => <RegisterPage user={this.state.user} setUser={this.setUser} {...props} key={Date.now()} /> } />
 
- <Route exact path="/forget" render={(props) => <ForgetPasswordPage {...props} key={Date.now()} /> } />
-
- <Route exact path="/reset/:id" render={(props) => <ResetPasswordPage {...props} key={Date.now()} /> } />
+  <Route exact path="/forget" render={(props) => <ForgetPasswordPage {...props} key={Date.now()} /> } />
  
- <Route exact path="/profile" render={(props) => <ProfilePage {...props} key={Date.now()} /> } />
+  <Route exact path="/reset/:id" render={(props) => <ResetPasswordPage {...props} key={Date.now()} /> } />
 
+  <Route exact path="/profile" render={(props) => <ProfilePage user={this.state.user} setUser={this.setUser}  {...props} key={Date.now()} /> } />
+
+  
+
+ 
  <Route exact path="/contact" render={(props) => <ContactPage {...props} key={Date.now()} /> } />
 
  <Route exact path="/purchase" render={(props) => <PurchasePage {...props} key={Date.now()} /> } />
