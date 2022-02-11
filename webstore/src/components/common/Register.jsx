@@ -8,7 +8,7 @@ import axios from 'axios'
 class Register extends Component {
 
      constructor(){
-          super();
+          super(); 
           this.state={
                name:'',
                email:'',
@@ -33,9 +33,8 @@ class Register extends Component {
             
                localStorage.setItem('token',response.data.token);
                this.setState({loggedIn:true})
-
                this.props.setUser(response.data.user);
- 
+               
           }).catch(error=>{
 
           }); 
@@ -48,6 +47,10 @@ class Register extends Component {
           /// After Login Redirect to Profile Page 
           if(this.state.loggedIn){
                return <Redirect to={'/profile'} />
+          }
+
+          if(localStorage.getItem('token')){
+               return <Redirect to="/profile" />
           }
 
 

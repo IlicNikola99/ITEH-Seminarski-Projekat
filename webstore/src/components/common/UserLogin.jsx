@@ -15,7 +15,7 @@ class UserLogin extends Component {
                message:'',
                loggedIn:false
           }
-     }
+     } 
 
      // Login Form Submit Method 
      formSubmit = (e) => {
@@ -29,9 +29,8 @@ class UserLogin extends Component {
             
                localStorage.setItem('token',response.data.token);
                this.setState({loggedIn:true})
-
                this.props.setUser(response.data.user);
- 
+               
           }).catch(error=>{
 
           }); 
@@ -47,6 +46,9 @@ class UserLogin extends Component {
                 return <Redirect to={'/profile'} />
            }
 
+           if(localStorage.getItem('token')){
+               return <Redirect to="/profile" />
+          }
 
 
           return (
