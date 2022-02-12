@@ -4,6 +4,8 @@ import Logo from '../../assets/images/logo.jpg';
 import Bars from '../../assets/images/bars.png';
 import {Link, Redirect} from "react-router-dom";
 import MegaMenuAll from '../home/MegaMenuAll';
+import axios from 'axios';
+import AppURL from '../../api/AppURL';
  
    
  class NavMenuDesktop extends Component {
@@ -14,7 +16,8 @@ import MegaMenuAll from '../home/MegaMenuAll';
                SideNavState: "sideNavClose",
                ContentOverState: "ContentOverlayClose",
                Searchkey:"",
-               SearchRedirectStauts:false
+               SearchRedirectStauts:false,
+               cartCount:0
           }
           this.SearchOnChange = this.SearchOnChange.bind(this);
           this.SeachOnClick = this.SeachOnClick.bind(this);
@@ -23,6 +26,14 @@ import MegaMenuAll from '../home/MegaMenuAll';
 
      logout = () => {
           localStorage.clear();
+     }
+
+     componentDidMount(){
+          let product_code = this.props.product_code;
+          axios.get(AppURL.CartCount(product_code)).then((response)=>{
+               this.setState({cartCount:response.data})
+
+          })
      }
 
      SearchOnChange(event){
@@ -81,7 +92,7 @@ import MegaMenuAll from '../home/MegaMenuAll';
                    <Link to="/profile" className="h4 btn">PROFILE</Link>
                    <Link to="/" onClick={this.logout} className="h4 btn">LOGOUT</Link>
                    
-       <Link to="/cart" className="cart-btn"><i className="fa fa-shopping-cart"></i> 3 Items </Link>
+       <Link to="/cart" className="cart-btn"><i className="fa fa-shopping-cart"></i> {this.state.cartCount} items </Link>
                     </div> 
                )
 
@@ -97,7 +108,7 @@ import MegaMenuAll from '../home/MegaMenuAll';
                    <Link to="/login" className="h4 btn">LOGIN</Link>
                    <Link to="/register" className="h4 btn">REGISTER</Link>
                    
-       <Link to="/cart" className="cart-btn"><i className="fa fa-shopping-cart"></i> 3 Items </Link>
+       <Link to="/cart" className="cart-btn"><i className="fa fa-shopping-cart"></i> 0 items  </Link>
                     </div> 
                )
 

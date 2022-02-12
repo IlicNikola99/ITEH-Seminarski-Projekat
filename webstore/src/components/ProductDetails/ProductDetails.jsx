@@ -3,7 +3,7 @@ import { Container,Row,Col, Form,Button } from 'react-bootstrap'
 import Product1 from '../../assets/images/product/product1.png'
 import ReactDOM from 'react-dom'
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
 import InnerImageZoom from 'react-inner-image-zoom';
 import SuggestedProduct from './SuggestedProduct'
@@ -23,7 +23,8 @@ class ProductDetails extends Component {
                color:"",
                quantity:"",
                productCode:null,
-               addToCart:"Add To Cart"
+               addToCart:"Add To Cart",
+               PageRefreshStatus:false
           }
      }
 
@@ -62,15 +63,15 @@ class ProductDetails extends Component {
                MyFormData.append("quantity",quantity);
                MyFormData.append("product_code",productCode);
               // MyFormData.append("email",email);
-              alert("info2: ", response);
+              
 
-               axios.post(AppURL.addToCart,MyFormData).then(response =>{
+               axios.post(AppURL.addToCart,MyFormData).then((response) =>{
                     alert("info2: ", response);
                     if(response.data===1){
                         
                          cogoToast.success("Product Added Successfully",{position:'top-right'});
                          this.setState({addToCart:"Add To Cart"})
-          
+                         this.setState({PageRefreshStatus:true})
                     }
                     else{
                          
@@ -99,6 +100,15 @@ class ProductDetails extends Component {
      quantityOnChange = (event) => {
           let quantity = event.target.value;
           this.setState({quantity:quantity})
+     }
+
+     PageRefresh =() => {
+          if(this.state.PageRefreshStatus===true){
+               let URL = window.location;
+               return (
+                    <Redirect to={URL} />
+               )
+          }
      }
 
      PriceOption(price,special_price){
@@ -326,7 +336,7 @@ class ProductDetails extends Component {
                <SuggestedProduct subcategory={subcategory} />
 
 
-               
+               {this.PageRefresh()}
                </Fragment>
           )
      }
