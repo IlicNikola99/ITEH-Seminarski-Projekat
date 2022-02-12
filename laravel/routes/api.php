@@ -41,6 +41,7 @@ Route::get('/reviewlist/{id}', [ReviewController::class, 'ReviewList']);
 
 Route::post('/addtocart',[ProductCartController::class, 'addToCart']);
 Route::get('/cartcount/{product_code}',[ProductCartController::class, 'CartCount']);
+Route::get('/orderlistbyuser/{email}',[ProductCartController::class, 'OrderListByUser']);
 
 //Laravel Passport
 Route::post('/login', [AuthController::class, 'Login']);
