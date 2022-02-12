@@ -8,13 +8,22 @@ import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
 import InnerImageZoom from 'react-inner-image-zoom';
 import SuggestedProduct from './SuggestedProduct'
 import ReviewList from './ReviewList'
+import cogoToast from 'cogo-toast';
+import AppURL from '../../api/AppURL'
+import axios from 'axios'
 
 class ProductDetails extends Component {
 
      constructor(){
           super();
           this.state={
-               previewImg:"0"
+               previewImg:"0",
+               isSize:null,
+               isColor:null,
+               color:"",
+               quantity:"",
+               productCode:null,
+               addToCart:"Add To Cart"
           }
      }
 
@@ -23,6 +32,74 @@ class ProductDetails extends Component {
           this.setState({previewImg:imgSrc})
      }
 
+
+
+     addToCart = () => {
+          let isSize = this.state.isSize;
+          let isColor = this.state.isColor;
+          let color = this.state.color;
+          let size = this.state.size;
+          let quantity = this.state.quantity;
+          let productCode = this.state.productCode;
+          //let email = this.props.user.email;
+
+
+          if(isColor==="YES" && color.length===0){
+               cogoToast.error('Please Select a Color',{position:'top-right'});
+          }
+         
+          else if(quantity.length===0){
+               cogoToast.error('Please Select Quantity',{position:'top-right'});
+          }
+         /* else if (!localStorage.getItem('token')){
+               cogoToast.warn('You have to Login First',{position:'top-right'});
+          }*/
+          else{
+               this.setState({addToCart:"Adding..."})
+               let MyFormData = new FormData();
+               MyFormData.append("color",color);
+               //MyFormData.append("size",size);
+               MyFormData.append("quantity",quantity);
+               MyFormData.append("product_code",productCode);
+              // MyFormData.append("email",email);
+              alert("info2: ", response);
+
+               axios.post(AppURL.addToCart,MyFormData).then(response =>{
+                    alert("info2: ", response);
+                    if(response.data===1){
+                        
+                         cogoToast.success("Product Added Successfully",{position:'top-right'});
+                         this.setState({addToCart:"Add To Cart"})
+          
+                    }
+                    else{
+                         
+                         cogoToast.error("Error adding the product! 1",{position:'top-right'});
+                         this.setState({addToCart:"Add To Cart"})
+                    }
+          
+               }).catch(error=>{
+                    cogoToast.error("Error adding the product! 2",{position:'top-right'});
+                         this.setState({addToCart:"Add To Cart"})
+          
+               });
+          }
+     }
+
+    
+
+
+     colorOnChange = (event) => {
+          let color = event.target.value;
+          // alert(color);
+          this.setState({color:color})
+     }
+
+
+     quantityOnChange = (event) => {
+          let quantity = event.target.value;
+          this.setState({quantity:quantity})
+     }
 
      PriceOption(price,special_price){
           if(special_price=="na"){
@@ -99,7 +176,27 @@ class ProductDetails extends Component {
      }
 
 
+     if(this.state.isSize===null){
+          if(size!="na"){
+               this.setState({isSize:"YES"})
+          }else{
+               this.setState({isSize:"NO"})
+          }
+     }
 
+
+     if(this.state.isColor===null){
+          if(color!="na"){
+               this.setState({isColor:"YES"})
+          }else{
+               this.setState({isColor:"NO"})
+          }
+     }
+
+
+     if(this.state.productCode===null){
+          this.setState({productCode:product_code})
+     }
 
           return ( 
                <Fragment>
@@ -166,7 +263,7 @@ class ProductDetails extends Component {
 
                <div className={ColorDiv}>
                <h6 className="mt-2"> Choose Color  </h6>
-               <select className="form-control form-select">
+               <select onChange={this.colorOnChange} className="form-control form-select">
                <option>Choose Color</option>
                {ColorOption}
                </select> 
@@ -183,7 +280,7 @@ class ProductDetails extends Component {
 
                <div className="" >
                <h6 className="mt-2"> Choose Quantity  </h6>
-               <select className="form-control form-select">
+               <select onChange={this.quantityOnChange} className="form-control form-select">
                <option>Choose Quantity</option>
                <option value="01">01</option>
                <option value="02">02</option>
@@ -201,7 +298,7 @@ class ProductDetails extends Component {
           
 
           <div className="input-group mt-3">
-               <button className="btn site-btn m-1 "> <i className="fa fa-shopping-cart"></i>  Add To Cart</button>
+          <button onClick={this.addToCart} className="btn site-btn m-1 "> <i className="fa fa-shopping-cart"></i> {this.state.addToCart} </button>
                <button className="btn btn-primary m-1"> <i className="fa fa-car"></i> Order Now</button>
                <button className="btn btn-primary m-1"> <i className="fa fa-heart"></i> Favourite</button>
           </div>
