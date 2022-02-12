@@ -53,9 +53,9 @@ export class OrderList extends Component {
                     <h6> Quantity = {ProductList.quantity} </h6>
                     <p>{ProductList.size} | {ProductList.color}</p>
                     <h6>Price = {ProductList.unit_price} x {ProductList.quantity} = {ProductList.total_price}$</h6>
-                    <h6>Stauts = {ProductList.order_status} </h6>
+                    <h6>Status = {ProductList.order_status} </h6>
                 </Col>
-                <Button onClick={this.handleShow} className="btn btn-danger">Post Review </Button>
+
                 <hr></hr>
             </div>
 
@@ -94,7 +94,7 @@ export class OrderList extends Component {
                     <Modal.Body>
                         <h6> review </h6>
                         <p>
-                        review
+                            review
                         </p>
 
 

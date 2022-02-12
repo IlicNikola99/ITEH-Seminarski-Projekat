@@ -54,3 +54,12 @@ Route::post('/register', [AuthController::class, 'Register']);
 Route::post('/forgetpassword', [ForgetController::class, 'ForgetPassword']);
 Route::post('/resetpassword', [ResetController::class, 'ResetPassword']);
 Route::get('/user', [UserController::class, 'User'])->middleware('auth:api');
+
+
+
+//Cart
+Route::get('/cartlist/{email}', [ProductCartController::class, 'CartList']);
+Route::get('/removefromcart/{id}', [ProductCartController::class, 'RemoveCartList']);
+
+Route::get('/cartcount/{email}', [ProductCartController::class, 'CartCount']);
+Route::post('/cartorder', [ProductCartController::class, 'CartOrder']);
