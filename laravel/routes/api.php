@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\Admin\VisitorController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\SiteInfoController;
@@ -10,6 +11,8 @@ use App\Http\Controllers\Admin\ProductListController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\ProductDetailsController;
 use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\ProductCartController;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgetController;
 use App\Http\Controllers\ResetController;
@@ -35,6 +38,7 @@ Route::get('/notification', [NotificationController::class, 'NotificationHistory
 Route::get('/search/{key}', [ProductListController::class, 'ProductBySearch']);
 Route::get('/similar/{subcategory}', [ProductListController::class, 'SimilarProduct']);
 Route::get('/reviewlist/{id}', [ReviewController::class, 'ReviewList']);
+Route::get('/addtocart', [ReviewController::class, 'addToCart']);
 
 //Laravel Passport
 Route::post('/login', [AuthController::class, 'Login']);

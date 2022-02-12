@@ -34,6 +34,7 @@ class AppURL {
      static UserRegister = this.BaseURL+"/register"
      static UserForgetPassword = this.BaseURL+"/forgetpassword"
      static UserResetPassword = this.BaseURL+"/resetpassword"
+     static addToCart = this.BaseURL+"/addtocart"
 
      static SimilarProduct(code){
           return this.BaseURL+"/similar/"+code;
