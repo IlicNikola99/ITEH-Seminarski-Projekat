@@ -10,7 +10,11 @@ use App\Models\ProductList;
 class ProductCartController extends Controller
 {
     public function addToCart(Request $request){
-        //$email = $request->input('email');
+
+        echo "<script>console.log('Debug Objects:  dsadsadd' );</script>";
+
+        $email = $request->input('email');
+        $size = $request->input('size');
         $color = $request->input('color');
         $quantity = $request->input('quantity');
         $product_code = $request->input('product_code');
@@ -31,10 +35,11 @@ class ProductCartController extends Controller
 
         $result = ProductCart::insert([
 
-            //'email' => $email,
+            'email' => $email,
             'image' => $productDetails[0]['image'],
             'product_name' => $productDetails[0]['title'],
             'product_code' => $productDetails[0]['product_code'],
+            'size' => "Size: ".$size,
             'color' => "Color: ".$color,
             'quantity' => $quantity,
             'unit_price' => $unit_price,
@@ -43,5 +48,13 @@ class ProductCartController extends Controller
         ]);
 
         return $result;
-    } 
+    } // End Method 
+
+
+
+    public function CartCount(Request $request){
+        $product_code = $request->product_code;
+        $result = ProductCart::count();
+        return $result;
+    } // End Method 
 }

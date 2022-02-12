@@ -38,7 +38,9 @@ Route::get('/notification', [NotificationController::class, 'NotificationHistory
 Route::get('/search/{key}', [ProductListController::class, 'ProductBySearch']);
 Route::get('/similar/{subcategory}', [ProductListController::class, 'SimilarProduct']);
 Route::get('/reviewlist/{id}', [ReviewController::class, 'ReviewList']);
-Route::get('/addtocart', [ReviewController::class, 'addToCart']);
+
+Route::post('/addtocart',[ProductCartController::class, 'addToCart']);
+Route::get('/cartcount/{product_code}',[ProductCartController::class, 'CartCount']);
 
 //Laravel Passport
 Route::post('/login', [AuthController::class, 'Login']);
