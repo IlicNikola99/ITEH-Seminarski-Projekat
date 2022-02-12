@@ -46,7 +46,7 @@ Route::get('/orderlistbyuser/{email}', [ProductCartController::class, 'OrderList
 
 Route::get('/favourite/{product_code}/{email}', [FavouriteController::class, 'AddFavourite']);
 Route::get('/favouritelist/{email}', [FavouriteController::class, 'FavouriteList']);
-
+Route::get('/favouriteremove/{product_code}/{email}', [FavouriteController::class, 'FavouriteRemove']);
 
 //Laravel Passport
 Route::post('/login', [AuthController::class, 'Login']);

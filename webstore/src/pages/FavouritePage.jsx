@@ -11,7 +11,7 @@ class FavouritePage extends Component {
      }
 
      render() {
-          const Email = localStorage.getItem('email');
+          const User = this.props.user;
           return (
                <Fragment>
                     <div className="Desktop">
@@ -22,7 +22,7 @@ class FavouritePage extends Component {
                          <NavMenuMobile />
                     </div>
 
-                    <Favourite />
+                    <Favourite user={User} />
 
                     <div className="Desktop">
                          <FooterDesktop />
