@@ -53,6 +53,14 @@ class AppURL {
      static OrderListByUser(email){
           return this.BaseURL+"/orderlistbyuser/"+email;
      }
+
+     static AddFavourite(product_code,email){
+          return this.BaseURL+"/favourite/"+product_code+"/"+email;
+     }
+
+     static FavouriteList(email){
+          return this.BaseURL+"/favouritelist/"+email;
+     }
 }
 
 export default AppURL

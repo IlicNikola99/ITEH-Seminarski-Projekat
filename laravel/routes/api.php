@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\ProductDetailsController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\ProductCartController;
+use App\Http\Controllers\Admin\FavouriteController;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgetController;
@@ -39,9 +40,13 @@ Route::get('/search/{key}', [ProductListController::class, 'ProductBySearch']);
 Route::get('/similar/{subcategory}', [ProductListController::class, 'SimilarProduct']);
 Route::get('/reviewlist/{id}', [ReviewController::class, 'ReviewList']);
 
-Route::post('/addtocart',[ProductCartController::class, 'addToCart']);
-Route::get('/cartcount/{product_code}',[ProductCartController::class, 'CartCount']);
-Route::get('/orderlistbyuser/{email}',[ProductCartController::class, 'OrderListByUser']);
+Route::post('/addtocart', [ProductCartController::class, 'addToCart']);
+Route::get('/cartcount/{product_code}', [ProductCartController::class, 'CartCount']);
+Route::get('/orderlistbyuser/{email}', [ProductCartController::class, 'OrderListByUser']);
+
+Route::get('/favourite/{product_code}/{email}', [FavouriteController::class, 'AddFavourite']);
+Route::get('/favouritelist/{email}', [FavouriteController::class, 'FavouriteList']);
+
 
 //Laravel Passport
 Route::post('/login', [AuthController::class, 'Login']);

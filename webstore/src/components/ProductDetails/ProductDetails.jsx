@@ -24,7 +24,8 @@ class ProductDetails extends Component {
                quantity:"",
                productCode:null,
                addToCart:"Add To Cart",
-               PageRefreshStatus:false
+               PageRefreshStatus:false,
+               addToFav:"Favourite"
           }
      }
 
@@ -66,7 +67,6 @@ class ProductDetails extends Component {
               
 
                axios.post(AppURL.addToCart,MyFormData).then((response) =>{
-                    alert("info2: ", response);
                     if(response.data===1){
                         
                          cogoToast.success("Product Added Successfully",{position:'top-right'});
@@ -88,7 +88,31 @@ class ProductDetails extends Component {
      }
 
     
+     addToFav = () => {
+          this.setState({addToFav:"Adding..."})
+          let productCode = this.state.productCode;
+          let email = localStorage.getItem('email');
+         
+               axios.get(AppURL.AddFavourite(productCode,email)).then(response =>{
+                    if(response.data===1){
+                         cogoToast.success("Product is now in Favourites",{position:'top-right'});
+                         this.setState({addToFav:"Favourite"})
 
+                    }
+                    else{
+                         cogoToast.error("Error adding to favourites! 1",{position:'top-right'});
+                         this.setState({addToFav:"Favourite"})
+                    }
+
+               }).catch(error=>{
+                    cogoToast.error("Error adding to favourites! 2",{position:'top-right'});
+                         this.setState({addToFav:"Favourite"})
+
+               });
+
+           
+
+     }  // end ADD TO FAV 
 
      colorOnChange = (event) => {
           let color = event.target.value;
@@ -310,7 +334,7 @@ class ProductDetails extends Component {
           <div className="input-group mt-3">
           <button onClick={this.addToCart} className="btn site-btn m-1 "> <i className="fa fa-shopping-cart"></i> {this.state.addToCart} </button>
                <button className="btn btn-primary m-1"> <i className="fa fa-car"></i> Order Now</button>
-               <button className="btn btn-primary m-1"> <i className="fa fa-heart"></i> Favourite</button>
+               <button onClick={this.addToFav} className="btn btn-primary m-1"> <i className="fa fa-heart"></i> {this.state.addToFav} </button>
           </div>
           </Col>
      </Row>
