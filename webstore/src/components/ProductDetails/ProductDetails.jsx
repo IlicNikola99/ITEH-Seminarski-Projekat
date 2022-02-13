@@ -333,7 +333,7 @@ class ProductDetails extends Component {
 
                                              <div className="input-group mt-3">
                                                   <button onClick={this.addToCart} className="btn site-btn m-1 "> <i className="fa fa-shopping-cart"></i> {this.state.addToCart} </button>
-                                                  <button className="btn btn-primary m-1"> <i className="fa fa-car"></i> Order Now</button>
+
                                                   <button onClick={this.addToFav} className="btn btn-primary m-1"> <i className="fa fa-heart"></i> {this.state.addToFav} </button>
                                              </div>
                                         </Col>
